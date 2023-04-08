@@ -30,7 +30,7 @@ A module and  a service were created to manage by dependence injection in a glob
 so in the prisma module the prisma Service is globaly exported and then injected on every service that needs database access. 
 
 ### Porduct Schema 
-´´´javascript
+```javascript
 model Product {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
@@ -42,9 +42,9 @@ model Product {
   Cart        Cart?    @relation(fields: [cartId], references: [id])
   cartId      String?  @db.ObjectId
 }
-´´´
+```
 ### User Schema
-´´´javascript
+```javascript
 model User {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   name     String
@@ -52,16 +52,17 @@ model User {
   username String @unique
   carts    Cart[]
 }
-´´´
+```
 ### Cart Schema 
-´´´javascript
+```javascript
   model Cart {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   products Product[]
   User     User?     @relation(fields: [userId], references: [id])
   userId   String?   @db.ObjectId
 }
-´´´
+```
+
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
