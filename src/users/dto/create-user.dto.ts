@@ -1,7 +1,5 @@
-export class CreateUserDto {
-  id?: string;
-  name: string;
-  lastName: string;
-  username: string;
-  carts?: any;
-}
+import { Prisma } from '@prisma/client';
+export type CreateUserDto = Prisma.XOR<
+  Prisma.UserCreateInput,
+  Prisma.UserUncheckedCreateInput
+>;
