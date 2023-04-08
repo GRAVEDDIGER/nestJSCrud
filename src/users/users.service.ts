@@ -19,15 +19,35 @@ export class UsersService {
 
   async findAll() {
     try {
-    } catch (error) {}
+      const response = await this.prisma.user.findMany({});
+      return { ok: true, response };
+    } catch (error) {
+      console.log(error);
+      return { ok: false, error };
+    }
   }
 
-  async findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string) {
+    try {
+      const response = await this.prisma.user.findUnique({ where: { id } });
+      return { ok: true, response };
+    } catch (error) {
+      console.log(error);
+      return { ok: false, error };
+    }
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    try {
+      const response = await this.prisma.user.update({
+        where: { id },
+        data: { UpdateUserDto },
+      });
+      return { ok: true, response };
+    } catch (error) {
+      console.log(error);
+      return { ok: false, error };
+    }
   }
 
   async remove(id: number) {
