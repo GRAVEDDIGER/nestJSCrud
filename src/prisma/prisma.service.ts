@@ -7,7 +7,7 @@ export class PrismaService extends PrismaClient {
     super({
       datasources: {
         db: {
-          url: 'mongodb+srv://dcsweb:MopG23GHLEu3GwB0@dcsweb.snm3hyr.mongodb.net/test',
+          url: process.env.DATABASE_URL,
         },
       },
     });

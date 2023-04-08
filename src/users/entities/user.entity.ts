@@ -7,3 +7,7 @@ export class User {
   username: string;
   carts: Cart[];
 }
+export interface UserError {
+  error: any;
+  ok: boolean;
+}
