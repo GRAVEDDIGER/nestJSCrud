@@ -41,7 +41,7 @@ export class UsersService {
     try {
       const response = await this.prisma.user.update({
         where: { id },
-        data: { UpdateUserDto },
+        data: { ...updateUserDto },
       });
       return { ok: true, response };
     } catch (error) {
@@ -50,7 +50,13 @@ export class UsersService {
     }
   }
 
-  async remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    try {
+      const response = await this.prisma.user.delete({ where: { id } });
+      return { ok: true, response };
+    } catch (error) {
+      console.log(error);
+      return { ok: false, error };
+    }
   }
 }

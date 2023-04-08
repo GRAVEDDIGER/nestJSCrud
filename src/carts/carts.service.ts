@@ -1,26 +1,61 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateCartDto } from './dto/create-cart.dto';
 
 @Injectable()
 export class CartsService {
+  constructor(private prisma: PrismaService) {}
   create(createCartDto: CreateCartDto) {
-    return 'This action adds a new cart';
+    try {
+      const response = this.prisma.cart.create({ data: createCartDto });
+      return { response, ok: true };
+    } catch (error) {
+      console.log(error);
+      return { error, ok: false };
+    }
   }
 
-  findAll() {
-    return `This action returns all carts`;
+  async findAll() {
+    try {
+      const response = await this.prisma.cart.findMany({});
+      return { response, ok: true };
+    } catch (error) {
+      console.log(error);
+      return { error, ok: false };
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} cart`;
+  async findOne(id: string) {
+    try {
+      const response = await this.prisma.cart.findUnique({ where: { id } });
+      return { response, ok: true };
+    } catch (error) {
+      console.log(error);
+      return { error, ok: false };
+    }
   }
 
-  update(id: number, updateCartDto: UpdateCartDto) {
-    return `This action updates a #${id} cart`;
+  async update(id: string, updateCartDto: UpdateCartDto) {
+    try {
+      const response = await this.prisma.cart.update({
+        where: { id },
+        data: updateCartDto,
+      });
+      return { response, ok: true };
+    } catch (error) {
+      console.log(error);
+      return { error, ok: true };
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} cart`;
+  async remove(id: string) {
+    try {
+      const response = await this.prisma.cart.delete({ where: { id: id } });
+      return { response, ok: true };
+    } catch (error) {
+      console.log(error);
+      return { error, ok: false };
+    }
   }
 }
