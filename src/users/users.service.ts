@@ -15,6 +15,7 @@ export class UsersService {
       return { ok: true, response };
     } catch (error) {
       console.log(error);
+      return {ok:false,error}
     }
   }
 
