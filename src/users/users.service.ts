@@ -3,7 +3,6 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UserError } from './entities/user.entity';
-import { User } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
@@ -50,18 +49,7 @@ export class UsersService {
       return { ok: false, error };
     }
   }
-
-  async findOne(id: string) {
-    try {
-      const response = await this.prisma.user.findUnique({ where: { id } });
-      return { ok: true, response };
-    } catch (error) {
-      console.log(error);
-      return { ok: false, error };
-    }
-  }
-
-  async update(id: string, updateUserDto: UpdateUserDto) {
+  async localUpdateById(id: string, updateUserDto: UpdateUserDto) {
     try {
       const response = await this.prisma.user.update({
         where: { id },
@@ -74,7 +62,7 @@ export class UsersService {
     }
   }
 
-  async remove(id: string) {
+  async localRemoveById(id: string) {
     try {
       const response = await this.prisma.user.delete({ where: { id } });
       return { ok: true, response };
